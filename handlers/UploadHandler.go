@@ -30,13 +30,21 @@ func UploadHandler(c *fiber.Ctx) error {
 
 	dataString := string(base64.StdEncoding.EncodeToString(data))
 
-	if file.Filename != "" && !strings.Contains(file.Filename, ".png") ||
-		file.Filename != "" && !strings.Contains(file.Filename, ".jpg") ||
-		file.Filename != "" && !strings.Contains(file.Filename, ".jpeg") {
+	if file.Filename != "" {
 		if file.Header["Content-Type"][0] == "image/jpeg" {
-			file.Filename = file.Filename + ".jpg"
+			if !strings.Contains(file.Filename, ".jpeg") && !strings.Contains(file.Filename, ".jpg") {
+				file.Filename = file.Filename + ".jpg"
+			}
 		} else if file.Header["Content-Type"][0] == "image/png" {
-			file.Filename = file.Filename + ".png"
+			if !strings.Contains(file.Filename, ".png") {
+				file.Filename = file.Filename + ".png"
+			}
+		} else if file.Header["Content-Type"][0] == "application/octet-stream" {
+			if !strings.Contains(file.Filename, ".jpeg") &&
+				!strings.Contains(file.Filename, ".jpg") &&
+				!strings.Contains(file.Filename, ".png") {
+				file.Filename = file.Filename + ".jpg"
+			}
 		} else {
 			file.Filename = file.Filename + ".jpg"
 		}
