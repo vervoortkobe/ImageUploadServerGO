@@ -18,7 +18,7 @@ func main() {
 
 	dbactions.LogAll()
 
-	exports.App.Static("/test", "./public")
+	exports.App.Static("/", "./public")
 
 	exports.App.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World!")
