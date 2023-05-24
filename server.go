@@ -49,6 +49,6 @@ func main() {
 
 	///////////////////////////////////////////////////////////////////////
 
-	fmt.Printf("⚡ | WebServer listening on http://localhost%s!\n", PORT)
+	fmt.Printf("⚡ | WebServer listening on [http://localhost%s]!\n", PORT)
 	log.Fatal(exports.App.Listen(PORT))
 }
