@@ -3,15 +3,22 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"server/dbactions"
 	"server/exports"
 	"server/handlers"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	PORT := ":3000"
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	PORT := os.Getenv("PORT")
 
 	exports.MongoClient()
 	fmt.Print("💽 | Connected to MongoDB!\n")
