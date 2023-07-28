@@ -12,3 +12,8 @@ type Image struct {
 }
 
 var EmptyImage Image = Image{}
+
+type UserCreds struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}

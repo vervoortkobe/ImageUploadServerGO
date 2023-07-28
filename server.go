@@ -27,7 +27,7 @@ func main() {
 
 	exports.App.Static("/", "./public")
 
-	exports.App.Get("/", func(c *fiber.Ctx) error {
+	exports.App.Get("/t", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World!")
 	})
 
@@ -45,6 +45,9 @@ func main() {
 		fmt.Printf(payload.Name + ": " + payload.Email + "\n")
 		return c.JSON(payload)
 	})
+
+	exports.App.Post("/register", handlers.RegisterHandler)
+	exports.App.Post("/auth", handlers.AuthHandler)
 
 	exports.App.Post("/upload", handlers.UploadHandler)
 
