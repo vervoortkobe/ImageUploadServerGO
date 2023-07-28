@@ -21,7 +21,7 @@ func InsertOne(name string, data string, timestamp int) (string, error) {
 
 	fmt.Printf("❗ | New upload to DB: %s (%s) on %dts\n", image.Name, image.Id, image.Timestamp)
 
-	img, e := FindOne(image.Id)
+	img, e := FindImage(image.Id)
 	if img != exports.EmptyImage && e == nil {
 		fmt.Printf("❌ | Failed upload, id: %s (duplicate id)! Retrying until success...\n", image.Id)
 		InsertOne(name, data, timestamp)

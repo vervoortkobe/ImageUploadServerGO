@@ -9,7 +9,7 @@ import (
 )
 
 func ImageHost(value string) (exports.Image, error) {
-	img, err := dbactions.FindOne(value)
+	img, err := dbactions.FindImage(value)
 	if img != exports.EmptyImage && err == nil {
 		return img, nil
 	}

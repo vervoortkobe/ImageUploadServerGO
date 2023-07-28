@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func FindOne(id string) (exports.Image, error) {
+func FindImage(id string) (exports.Image, error) {
 	coll := exports.MongoClient().Database("Server").Collection("images")
 
 	filter := bson.D{{Key: "id", Value: id}}
@@ -19,7 +19,7 @@ func FindOne(id string) (exports.Image, error) {
 	err := coll.FindOne(context.TODO(), filter).Decode(&result)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			fmt.Printf("❌ | No record found with id: %s\n", id)
+			fmt.Printf("❌ | No image record found with id: %s\n", id)
 			return exports.EmptyImage, err
 		}
 		return exports.EmptyImage, err
@@ -33,6 +33,6 @@ func FindOne(id string) (exports.Image, error) {
 		Data:      result["data"].(string),
 		Timestamp: int(timestamp32),
 	}
-	fmt.Printf("🔍 | Found record with id: %s\n%v\n", id, result["name"])
+	fmt.Printf("🔍 | Found image record with id: %s\n%v\n", id, result["name"])
 	return image, nil
 }
