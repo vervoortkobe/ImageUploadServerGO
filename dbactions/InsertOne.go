@@ -19,7 +19,7 @@ func InsertOne(name string, data string, timestamp int) (string, error) {
 		Timestamp: timestamp,
 	}
 
-	fmt.Printf("❗ | New upload to DB: %s (%s) on %dts\n", image.Name, image.Id, image.Timestamp)
+	fmt.Printf("❗ | New image upload to DB: %s (%s) on %dts\n", image.Name, image.Id, image.Timestamp)
 
 	img, e := FindImage(image.Id)
 	if img != exports.EmptyImage && e == nil {

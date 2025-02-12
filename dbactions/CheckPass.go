@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func FindLogin(username string) (bool, error) {
+func CheckPass(username string, password string) (bool, error) {
 	coll := exports.MongoClient().Database("Server").Collection("logins")
 
 	filter := bson.D{{Key: "username", Value: username}}
@@ -24,6 +24,11 @@ func FindLogin(username string) (bool, error) {
 		}
 		return false, err
 	}
-	fmt.Printf("✅ | Found login record with username: %s (%s)\n", username, result["id"])
+	if result["username"] == username && result["password"] == password {
+		fmt.Printf("✅ | User %s (%s) successfully logged in!\n", username, result["id"])
+		//create sess
+	} else {
+		fmt.Printf("❌ | User %s (%s) entered the wrong password!\n", username, result["id"])
+	}
 	return false, nil
 }

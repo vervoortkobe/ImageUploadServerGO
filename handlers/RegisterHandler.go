@@ -15,14 +15,13 @@ func RegisterHandler(c *fiber.Ctx) error {
 	if err := c.BodyParser(&payload); err != nil {
 		return err
 	}
-	fmt.Printf("New user registered > " + payload.Username + ": " + payload.Password + "\n")
 
 	username, err := dbactions.Register(payload.Username, payload.Password)
 	if username == "err_duplicate_username" && err != nil {
-		return nil //err
+		return c.SendString("err_duplicate_username")
 	} else if username == "err_insert_one" && err != nil {
-		return nil //err
+		return c.SendString("err_insert_one")
 	} else {
-		return c.Redirect(fmt.Sprintf("/%s", username))
+		return c.SendString(fmt.Sprint(username))
 	}
 }
